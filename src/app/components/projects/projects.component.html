@@ -1,3 +1,15 @@
-<p>
-  projects works!
-</p>
+<div class="container">
+    <h2 class="text-center">Projects</h2>
+    <div class="row justify-content-center">
+        <div *ngFor="let project of projects" class="col-12 col-md-6 col-lg-4">
+            <div class="card mt-4">
+                <img *ngIf="project.image" src="{{ url + 'get-image/' + project.image }}" class="card-img-top" style="height: 200px; ">
+                <div class="card-body">
+                    <h5 class="card-title">{{ project.name }}</h5>
+                    <p class="card-text"><small class="text-muted">{{ project.category }}</small></p>
+                    <a [routerLink]="['/detail', project._id]" class="btn btn-primary">Ir a detalle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

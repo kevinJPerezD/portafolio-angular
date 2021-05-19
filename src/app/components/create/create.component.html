@@ -1,3 +1,55 @@
-<p>
-  create works!
-</p>
+<div class="row justify-content-center" *ngIf="project">
+    <div class="col-12 col-lg-9">
+        <!-- Alert -->
+        <div *ngIf="status == 'success'" class="alert alert-dismissible fade show mt-3" [class.alert-success]="status == 'success'" [class.alert-danger]="status == 'filed'" role="alert">
+            <div *ngIf="status == 'success'"><strong>Proyeto creado!</strong> Se ha creado correctamente tu proyecto <a [routerLink]="['/detail', save_project._id]">verlo aquí</a></div>
+            <div *ngIf="status == 'filed'"><strong>Proyeto no creado!</strong> No se ha creado correctamente tu proyecto</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <!--  -->
+        <div class="card mt-3">
+            <div class="card-header">
+                {{ title }}
+            </div>
+            <div class="card-body">
+                <form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="project.name" required>
+                        <div *ngIf="name.touched && !name.valid" class="form-text text-danger">Name not valid</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea type="text" name="description" class="form-control" #description="ngModel" [(ngModel)]="project.description" required></textarea>
+                        <div *ngIf="description.touched && !description.valid" class="form-text text-danger">Description not valid
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <input type="text" name="category" class="form-control" #category="ngModel" [(ngModel)]="project.category" required>
+                        <div *ngIf="category.touched && !category.valid" class="form-text text-danger">Category not valid
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="year" class="form-label">Year</label>
+                        <input type="number" name="year" class="form-control" #year="ngModel" [(ngModel)]="project.year" required>
+                        <div *ngIf="year.touched && !year.valid" class="form-text text-danger">Year not valid</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="langs" class="form-label">Langs</label>
+                        <input type="text" name="langs" class="form-control" #langs="ngModel" [(ngModel)]="project.langs" required>
+                        <div *ngIf="langs.touched && !langs.valid" class="form-text text-danger">Langs not valid</div>
+                    </div>
+                    <div class="mb-3">
+                        <img *ngIf="project.image" src="{{ url + 'get-image/' + project.image }}" class="card-img-top border mt-3" style="width: 200px; height: 200px;">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" name="image" class="form-control" (change)="fileChangeEvent($event)">
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Send" [disabled]="!projectForm.valid">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
